@@ -16,7 +16,7 @@ export type DigestReadResult = {
   malformedLines: number;
 };
 
-export declare function readNight(
+export type ReadNight = (
   runsDir: string,
   night: string,
-): DigestReadResult | null;
+) => DigestReadResult | null;
