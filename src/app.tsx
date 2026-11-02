@@ -31,10 +31,9 @@ export function createApp(config: RigConfig = loadConfig()) {
     const digest = readNight(config.runsDir, night);
     if (!digest) return c.notFound();
 
-    const rows = [...digest.rows].sort((a, b) => a.job.localeCompare(b.job));
     return c.html(
       <Layout title={`digest ${night}`} lane={lane()}>
-        <DigestPage night={night} rows={rows} />
+        <DigestPage night={night} rows={digest.rows} />
       </Layout>,
     );
   });

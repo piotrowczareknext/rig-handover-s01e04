@@ -29,6 +29,10 @@ function isRunEntry(value: unknown): value is RunEntry {
 }
 
 export const readNight: ReadNight = (runsDir, night) => {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(night)) {
+    return null;
+  }
+
   let contents: string;
 
   try {
@@ -95,5 +99,6 @@ export const readNight: ReadNight = (runsDir, night) => {
     row.lastAt = value.at;
   }
 
-  return { rows: [...rowsByJob.values()], malformedLines };
+  const rows = [...rowsByJob.values()].sort((a, b) => a.job.localeCompare(b.job));
+  return { rows, malformedLines };
 };

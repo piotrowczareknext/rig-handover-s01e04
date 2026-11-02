@@ -7,6 +7,13 @@ describe('night reader', () => {
 
     expect(result).not.toBeNull();
     expect(result?.rows).toHaveLength(5);
+    expect(result?.rows.map(({ job }) => job)).toEqual([
+      'digest/render',
+      'fixtures/refresh',
+      'lane/sync',
+      'notes/backup',
+      'rig/rotate-logs',
+    ]);
     expect(result?.malformedLines).toBe(1);
     expect(result?.rows.find(({ job }) => job === 'digest/render')).toMatchObject({
       owner: null,
@@ -32,17 +39,21 @@ describe('night reader', () => {
   });
 
   it('counts valid JSON with an invalid schema as malformed', () => {
-    expect(readNight('test/fixtures', 'invalid-schema')).toEqual({
+    expect(readNight('test/fixtures', '2026-10-29')).toEqual({
       rows: [],
       malformedLines: 1,
     });
   });
 
   it('returns null for a missing night', () => {
-    expect(readNight('runs', 'missing-night')).toBeNull();
+    expect(readNight('runs', '2026-10-30')).toBeNull();
+  });
+
+  it('rejects night values that are not dates', () => {
+    expect(readNight('runs', '..\\..\\2026-10-28')).toBeNull();
   });
 
   it('leaves non-missing filesystem errors visible', () => {
-    expect(() => readNight('runs', 'invalid\0night')).toThrow();
+    expect(() => readNight('runs\0', '2026-10-28')).toThrow();
   });
 });

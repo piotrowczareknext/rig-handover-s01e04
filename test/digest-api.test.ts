@@ -21,7 +21,7 @@ afterEach(() => {
 });
 
 describe('digest JSON API', () => {
-  it('returns the reader result without changing row order', async () => {
+  it('returns rows in the same sorted order as the digest page', async () => {
     const result: DigestReadResult = {
       rows: [
         {
@@ -47,12 +47,16 @@ describe('digest JSON API', () => {
       ],
       malformedLines: 1,
     };
-    readNight.mockReturnValue(result);
+    const sortedResult = {
+      ...result,
+      rows: [...result.rows].sort((a, b) => a.job.localeCompare(b.job)),
+    };
+    readNight.mockReturnValue(sortedResult);
 
     const response = await createApp(config).request('/api/digest/2026-10-28');
 
     expect(response.status).toBe(200);
-    expect(await response.json()).toEqual(result);
+    expect(await response.json()).toEqual(sortedResult);
     expect(readNight).toHaveBeenCalledWith('runs', '2026-10-28');
   });
 
