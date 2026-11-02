@@ -1,8 +1,9 @@
 ---
 plan: morning-digest
-status: ready
+status: done
 owner: rook
 opened: 2026-10-29
+closed: 2026-11-02
 ---
 
 # Morning digest
@@ -70,6 +71,8 @@ issues for this plan.
 
 Done when: the preview link is sent to the reviewer.
 
+Preview: [Morning digest on GitHub Pages](https://piotrowczareknext.github.io/rig-handover-s01e04/)
+
 ## 4. Clean up
 
 The preview carries this lane's marker on a public link (ADR 0003). Take the marker off: save the
@@ -77,3 +80,16 @@ page again with `LANE_MARKER` unset (the banner reads "no marker set") and uploa
 link. Move this plan to `docs/plans/done/` with its issue list.
 
 Done when: the preview link no longer shows the lane marker.
+
+## Issues
+
+| # | Issue | Blocked by | Status |
+|---|-------|-----------|--------|
+| 1 | [Define digest types](https://github.com/piotrowczareknext/rig-handover-s01e04/issues/1) | — | closed |
+| 2 | [Read nightly run logs](https://github.com/piotrowczareknext/rig-handover-s01e04/issues/2) | #1 | closed |
+| 3 | [Render the digest page](https://github.com/piotrowczareknext/rig-handover-s01e04/issues/3) | #1 | closed |
+| 4 | [Add the digest JSON API](https://github.com/piotrowczareknext/rig-handover-s01e04/issues/4) | #1 | closed |
+| 5 | [Link nights to the digest](https://github.com/piotrowczareknext/rig-handover-s01e04/issues/5) | #1, #2 | closed |
+| 6 | [Test the digest routes](https://github.com/piotrowczareknext/rig-handover-s01e04/issues/6) | #2, #3, #4 | closed |
+| 7 | [Publish a digest review preview](https://github.com/piotrowczareknext/rig-handover-s01e04/issues/7) | #2, #3, #4, #5, #6 | closed |
+| 8 | [Remove the preview marker and archive the plan](https://github.com/piotrowczareknext/rig-handover-s01e04/issues/8) | #7 | closed |
